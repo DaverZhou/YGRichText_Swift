@@ -1,4 +1,4 @@
-# YGRichText_Swift
+# YGRichText
 纯Swift版本, 调用上与OC版本的类似。
 
 [Objective-C 版本](https://github.com/DaverZhou/YGRichText)
