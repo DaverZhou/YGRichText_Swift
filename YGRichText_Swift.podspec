@@ -13,11 +13,13 @@ Pod::Spec.new do |spec|
   spec.author       = { "DaverZhou" => "daverzhou98@gmail.com" }
   spec.source       = { :git => "https://github.com/DaverZhou/YGRichText_Swift.git", :tag => "#{spec.version}" }
 
-  spec.ios.deployment_target = "8.0"
+  spec.ios.deployment_target    = "10.0"
 
   spec.source_files        = "Classes/**/*.swift"
 
   spec.requires_arc = true
-  
+
+  spec.swift_version            = '5.0'
+
   
 end
