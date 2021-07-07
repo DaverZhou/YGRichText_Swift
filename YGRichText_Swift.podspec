@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
 
   spec.ios.deployment_target = "8.0"
 
-  spec.source_files        = "YGRichText/**/*.swift"
+  spec.source_files        = "Classes/**/*.swift"
 
   spec.requires_arc = true
   
