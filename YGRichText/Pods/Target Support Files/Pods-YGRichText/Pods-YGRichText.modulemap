@@ -1,0 +1,6 @@
+module Pods_YGRichText {
+  umbrella header "Pods-YGRichText-umbrella.h"
+
+  export *
+  module * { export * }
+}

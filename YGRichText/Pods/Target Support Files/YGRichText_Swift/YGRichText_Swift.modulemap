@@ -1,0 +1,6 @@
+module YGRichText_Swift {
+  umbrella header "YGRichText_Swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

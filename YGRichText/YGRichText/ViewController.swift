@@ -1,11 +1,12 @@
 //
 //  ViewController.swift
-//  YGRichText_Swift
+//  YGRichText
 //
 //  Created by 周永桂 on 2021/7/7.
 //
 
 import UIKit
+import YGRichText_Swift
 
 class ViewController: UIViewController {
     let titleLabel = UILabel.init(frame: CGRect.init(x: 50, y: 100, width: 300, height: 100))
@@ -23,5 +24,6 @@ class ViewController: UIViewController {
         })
         
     }
+
 }
 

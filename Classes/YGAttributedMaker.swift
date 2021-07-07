@@ -7,7 +7,7 @@
 
 import UIKit
 
-class YGAttributedMaker: NSObject {
+public class YGAttributedMaker: NSObject {
     
     private var strings: Array<String> = []
     private var attributedStrings: Array<NSMutableAttributedString> = []

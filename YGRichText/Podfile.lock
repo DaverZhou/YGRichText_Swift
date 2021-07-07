@@ -1,0 +1,16 @@
+PODS:
+  - YGRichText_Swift (1.0.0)
+
+DEPENDENCIES:
+  - YGRichText_Swift
+
+SPEC REPOS:
+  trunk:
+    - YGRichText_Swift
+
+SPEC CHECKSUMS:
+  YGRichText_Swift: 23afd23c8cde40bf4a0ee6386254bedc5f736826
+
+PODFILE CHECKSUM: 505c31217e98b58d4bcaf4fa8c8c8baeca631ddd
+
+COCOAPODS: 1.10.1
