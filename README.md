@@ -1,6 +1,8 @@
 # YGRichText_Swift
 纯Swift版本, 调用上与OC版本的类似。
 
+[Objective-C 版本](https://github.com/DaverZhou/YGRichText)
+
 ```
 self.titleLabel.attributedText = "YGRichText 富文本库".yg_makeAttributed({ make in
     make.font(UIFont.systemFont(ofSize: 10)).yg_Range(0, 3)
