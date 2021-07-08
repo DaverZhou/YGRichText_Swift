@@ -1,16 +1,16 @@
 PODS:
-  - YGRichText_Swift (1.0.0)
+  - YGRichText_Swift (1.0.1)
 
 DEPENDENCIES:
-  - YGRichText_Swift
+  - YGRichText_Swift (from `../`)
 
-SPEC REPOS:
-  trunk:
-    - YGRichText_Swift
+EXTERNAL SOURCES:
+  YGRichText_Swift:
+    :path: "../"
 
 SPEC CHECKSUMS:
-  YGRichText_Swift: 23afd23c8cde40bf4a0ee6386254bedc5f736826
+  YGRichText_Swift: f81366ca267d6bf7c9d2113f6ab8db983ec04239
 
-PODFILE CHECKSUM: 505c31217e98b58d4bcaf4fa8c8c8baeca631ddd
+PODFILE CHECKSUM: ae4c3c01efabb318619da7b52b721e0b4a3d1760
 
 COCOAPODS: 1.10.1

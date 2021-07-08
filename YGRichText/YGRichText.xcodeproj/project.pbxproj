@@ -80,7 +80,6 @@
 				49C7DAD6AEC9093048EBC415 /* Pods-YGRichText.debug.xcconfig */,
 				5E6E4789491C0D2B5C619D13 /* Pods-YGRichText.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
