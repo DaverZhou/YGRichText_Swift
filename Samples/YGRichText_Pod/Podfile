@@ -2,7 +2,7 @@ platform:ios,'10.0'
 inhibit_all_warnings!
 
 target 'YGRichText' do
-  
-  pod 'YGRichText_Swift', :path => '../'
+  pod 'YGRichText_Swift'
+#  pod 'YGRichText_Swift', :path => '../'
 
 end
