@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "YGRichText_Swift"
-  spec.version      = "1.0.2"
+  spec.version      = "1.1.0"
   spec.summary      = "链式设置富文本"
 
   spec.description  = <<-DESC
@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
 
   spec.ios.deployment_target    = "10.0"
 
-  spec.source_files        = "Classes/**/*.swift"
+  spec.source_files        = "Sources/YGRichText_Swift/*.swift"
 
   spec.requires_arc = true
 
