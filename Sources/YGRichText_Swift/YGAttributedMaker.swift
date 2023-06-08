@@ -2,17 +2,20 @@
 //  YGAttributedMaker.swift
 //  YGSWFRichText
 //
-//  Created by 周永桂 on 2021/6/17.
+//  Created by Yg zhou on 2021/6/17.
 //
 
 import UIKit
 
 public class YGAttributedMaker: NSObject {
-    
+    /// 字符串数组
     private var strings: Array<String> = []
+    /// 段落属性
+    private var paragraphStyle: NSMutableParagraphStyle?
+    /// 属性数组
+    private var attributedItems: [ NSAttributedString.Key : Any] = [:]
+    /// 富文本数组
     private var attributedStrings: Array<NSMutableAttributedString> = []
-    private var attributeds: [ String : Any] = [:]
-    private var style: NSMutableParagraphStyle?
     
     override init() {
         super.init()
@@ -26,14 +29,11 @@ public class YGAttributedMaker: NSObject {
         let attributedString = NSMutableAttributedString.init(string: string)
         self.attributedStrings.append(attributedString)
     }
-    
-    
-    
+
     /// MARK: Public
-    
     /// 结果
     public func result() -> NSMutableAttributedString {
-        let attributedString = NSMutableAttributedString.init()
+        let attributedString = NSMutableAttributedString()
         if self.attributedStrings.isEmpty {
             return attributedString
         }
@@ -45,120 +45,120 @@ public class YGAttributedMaker: NSObject {
 
     /// 字体
     public func font(_ value: UIFont) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.font.rawValue, value: value)
+        addAttributed(.font, value: value)
         return self
     }
         
     /// 斜体
     public func italic(_ value: CGFloat) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.obliqueness.rawValue, value: value)
+        addAttributed(.obliqueness, value: value)
         return self
     }
     
     /// 设置文字颜色
     public func foregroundColor(_ value: UIColor) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.foregroundColor.rawValue, value: value)
+        addAttributed(.foregroundColor, value: value)
         return self
     }
 
     /// 设置背景颜色
     public func backgroundColor(_ value: UIColor) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.backgroundColor.rawValue, value: value)
+        addAttributed(.backgroundColor, value: value)
         return self
     }
 
-    /// 删除线高度
-    public func strikethroughStyle(_ value: Int) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.strikethroughStyle.rawValue, value: value)
+    /// 删除线样式
+    public func strikethroughStyle(_ value: NSUnderlineStyle = .single) -> YGAttributedMaker {
+        addAttributed(.strikethroughStyle, value: value.rawValue)
         return self
     }
     
     /// 删除线颜色
     public func strikethroughColor(_ value: UIColor) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.strikethroughColor.rawValue, value: value)
+        addAttributed(.strikethroughColor, value: value)
         return self
     }
 
     /// 下滑线粗度
     public func underlineStyle(_ value: Int) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.underlineStyle.rawValue, value: value)
+        addAttributed(.underlineStyle, value: value)
         return self
     }
 
     /// 下滑线颜色
     public func underlineColor(_ value: UIColor) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.underlineColor.rawValue, value: value)
+        addAttributed(.underlineColor, value: value)
         return self
     }
     
     /// 字体描边宽度
     public func strokeWidth(_ value: CGFloat) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.strokeWidth.rawValue, value: value)
+        addAttributed(.strokeWidth, value: value)
         return self
     }
     
     /// 字体描边颜色
     public func strokeWidth(_ value: UIColor) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.strokeColor.rawValue, value: value)
+        addAttributed(.strokeColor, value: value)
         return self
     }
 
     /// 字体阴影
     public func shadow(_ value: NSShadow) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.shadow.rawValue, value: value)
+        addAttributed(.shadow, value: value)
         return self
     }
 
     /// 字间距
     public func kern(_ value: CGFloat) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.kern.rawValue, value: value)
+        addAttributed(.kern, value: value)
         return self
     }
     
     /// 段落: 行间距
     public func lineSpacing(_ value: CGFloat) -> YGAttributedMaker {
-        if self.style == nil {
-            self.style = NSMutableParagraphStyle.init()
+        if self.paragraphStyle == nil {
+            self.paragraphStyle = NSMutableParagraphStyle.init()
         }
-        self.style?.lineSpacing = value
-        addAttributed(NSAttributedString.Key.paragraphStyle.rawValue, value: self.style)
+        self.paragraphStyle?.lineSpacing = value
+        addAttributed(.paragraphStyle, value: self.paragraphStyle)
         return self
     }
     
     /// 段落: 对齐方式
     public func textAlignment(_ value: NSTextAlignment) -> YGAttributedMaker {
-        if self.style == nil {
-            self.style = NSMutableParagraphStyle.init()
+        if self.paragraphStyle == nil {
+            self.paragraphStyle = NSMutableParagraphStyle.init()
         }
-        self.style?.alignment = value
-        addAttributed(NSAttributedString.Key.paragraphStyle.rawValue, value: self.style)
+        self.paragraphStyle?.alignment = value
+        addAttributed(.paragraphStyle, value: self.paragraphStyle)
         return self
     }
 
     /// 段落: 字符截断类型
     public func textAlignment(_ value: NSLineBreakMode) -> YGAttributedMaker {
-        if self.style == nil {
-            self.style = NSMutableParagraphStyle.init()
+        if self.paragraphStyle == nil {
+            self.paragraphStyle = NSMutableParagraphStyle.init()
         }
-        self.style?.lineBreakMode = value
-        addAttributed(NSAttributedString.Key.paragraphStyle.rawValue, value: self.style)
+        self.paragraphStyle?.lineBreakMode = value
+        addAttributed(.paragraphStyle, value: self.paragraphStyle)
         return self
     }
     
     /// 设置URL跳转 UITextView才有效，UILabel和UITextField里面无效
     public func link(_ value: String) -> YGAttributedMaker {
-        addAttributed(NSAttributedString.Key.link.rawValue, value: NSURL.init(string:value))
+        addAttributed(.link, value: NSURL(string:value))
         return self
     }
 
     /// 插入图片
     public func insertImage(_ image: UIImage?, _ bounds: CGRect, _ index: Int) -> YGAttributedMaker {
         // 图标
-        let attachment = NSTextAttachment.init()
+        let attachment = NSTextAttachment()
         attachment.image = image
         attachment.bounds = bounds
         // 富文本
-        let tempAttributed = NSAttributedString.init(attachment: attachment)
+        let tempAttributed = NSAttributedString(attachment: attachment)
         let attributedString = self.attributedStrings.last
         attributedString?.insert(tempAttributed, at: index)
         
@@ -168,7 +168,7 @@ public class YGAttributedMaker: NSObject {
     /// 拼接字符串
     public func appendString(_ string: String) -> YGAttributedMaker {
         self.strings.append(string)
-        let attributedString = NSMutableAttributedString.init(string: string)
+        let attributedString = NSMutableAttributedString(string: string)
         self.attributedStrings.append(attributedString)
 
         return self
@@ -183,7 +183,7 @@ public class YGAttributedMaker: NSObject {
         self.strings.removeAll()
         self.strings.append(string)
         
-        let attributedString = NSMutableAttributedString.init()
+        let attributedString = NSMutableAttributedString()
         for item in self.attributedStrings {
             attributedString.append(item)
         }
@@ -193,38 +193,50 @@ public class YGAttributedMaker: NSObject {
         return self
     }
     
-    /// MARK: Range
-    public func allRange() {
-        let string = self.strings.last
-        let range = NSRange.init(location: 0, length: string?.count ?? 0)
-        
-        compositionToAttributed(range: range)
+    
+    
+    /// MARK: Private
+    private func addAttributed(_ key: NSAttributedString.Key?, value: Any?) {
+        if key != nil && value != nil {
+            self.attributedItems.updateValue(value!, forKey: key!)
+        }
     }
     
-    public func yg_Range(_ loc: Int, _ len: Int) {
-        compositionToAttributed(range: NSRange.init(location: loc, length: len))
+}
+
+
+extension YGAttributedMaker {
+    /// MARK: Range
+    public func inRange() {
+        if let string = self.strings.last {
+            synthesisToAttributed(range: NSRange(location: 0, length: string.count))
+        }
+    }
+    
+    public func inRange(_ loc: Int, _ len: Int) {
+        synthesisToAttributed(range: NSRange(location: loc, length: len))
     }
     
     public func inRange(_ range: NSRange) {
-        compositionToAttributed(range: range)
+        synthesisToAttributed(range: range)
     }
     
-    /// MARK: Private
-    private func addAttributed(_ key: String?, value: Any?) {
-        if key != nil && value != nil {
-            self.attributeds.updateValue(value!, forKey: key!)
+    public func inRange(of value: String, options mask: String.CompareOptions = []) {
+        if let string = self.strings.last, let range = string.range(of: value, options: mask) {
+            synthesisToAttributed(range: string.toNSRange(from: range))
         }
     }
-    
-    private func compositionToAttributed(range: NSRange) {
+
+    /// 设置属性
+    private func synthesisToAttributed(range: NSRange) {
         let attributedString = self.attributedStrings.last
-        for (key, value) in self.attributeds {
-            attributedString?.addAttribute(NSAttributedString.Key(rawValue: key), value: value, range: range)
+        for (key, value) in self.attributedItems {
+            attributedString?.addAttribute(key, value: value, range: range)
         }
         
-        self.style = nil
-        self.attributeds.removeAll()
-        
+        self.attributedItems.removeAll()
+        self.paragraphStyle = nil
+
     }
-    
+
 }

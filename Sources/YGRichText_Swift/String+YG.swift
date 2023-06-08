@@ -2,16 +2,15 @@
 //  String+YG.swift
 //  YGSWFRichText
 //
-//  Created by 周永桂 on 2021/6/17.
+//  Created by Yg zhou on 2021/6/17.
 //
 
 import Foundation
 
-
 public extension String {
     public func yg_makeAttributed(_ closure: (YGAttributedMaker) -> Void) -> NSMutableAttributedString {
         if self.isEmpty {
-            return NSMutableAttributedString.init(string: "")
+            return NSMutableAttributedString(string: "")
         }
         
         let maker = YGAttributedMaker.init(string: self)
@@ -20,5 +19,8 @@ public extension String {
         
         return maker.result()
     }
-
+    
+    
 }
+
+

@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  YGRichText
 //
-//  Created by 周永桂 on 2021/7/7.
+//  Created by Yg zhou on 2021/7/7.
 //
 
 import UIKit
