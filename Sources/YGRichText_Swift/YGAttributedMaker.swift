@@ -222,9 +222,20 @@ extension YGAttributedMaker {
     }
     
     public func inRange(of value: String, options mask: String.CompareOptions = []) {
-        if let string = self.strings.last, let range = string.range(of: value, options: mask) {
-            synthesisToAttributed(range: string.toNSRange(from: range))
+        if let string = self.strings.last, let range = string.range(of: value, options: mask), let nsRange = string.toNSRange(from: range) {
+            synthesisToAttributed(range: nsRange)
         }
+    }
+    
+    public func inRanges(of value: String) {
+        if let string = self.strings.last {
+            let ranges = string._ranges(of: value)
+            synthesisToAttributed(ranges: ranges)
+        }
+    }
+    
+    public func inRanges(of ranges: [Range<String.Index>]) {
+        synthesisToAttributed(ranges: ranges)
     }
 
     /// 设置属性
@@ -232,6 +243,21 @@ extension YGAttributedMaker {
         let attributedString = self.attributedStrings.last
         for (key, value) in self.attributedItems {
             attributedString?.addAttribute(key, value: value, range: range)
+        }
+        
+        self.attributedItems.removeAll()
+        self.paragraphStyle = nil
+
+    }
+    
+    private func synthesisToAttributed(ranges: [Range<String.Index>]) {
+        let attributedString = self.attributedStrings.last
+        for range in ranges {
+            for (key, value) in self.attributedItems {
+                if let nsRange = attributedString?.string.toNSRange(from: range) {
+                    attributedString?.addAttribute(key, value: value, range: nsRange)
+                }
+            }
         }
         
         self.attributedItems.removeAll()
