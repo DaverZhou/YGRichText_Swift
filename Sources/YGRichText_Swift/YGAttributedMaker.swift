@@ -206,54 +206,62 @@ public class YGAttributedMaker: NSObject {
 
 
 extension YGAttributedMaker {
-    /// MARK: Range
+    /// set range, defalut all length
     public func inRange() {
         if let string = self.strings.last {
-            synthesisToAttributed(range: NSRange(location: 0, length: string.count))
+            invokingAttributed(range: NSRange(location: 0, length: string.count))
         }
     }
     
+    /// set range by (loc, len)
     public func inRange(_ loc: Int, _ len: Int) {
-        synthesisToAttributed(range: NSRange(location: loc, length: len))
+        invokingAttributed(range: NSRange(location: loc, length: len))
     }
     
+    /// set range by NSRange
     public func inRange(_ range: NSRange) {
-        synthesisToAttributed(range: range)
+        invokingAttributed(range: range)
     }
     
+    /// set range by condition
     public func inRange(of value: String, options mask: String.CompareOptions = []) {
         if let string = self.strings.last, let range = string.range(of: value, options: mask), let nsRange = string.toNSRange(from: range) {
-            synthesisToAttributed(range: nsRange)
+            invokingAttributed(range: nsRange)
         }
     }
     
+    /// set ranges by condition
     public func inRanges(of value: String) {
         if let string = self.strings.last {
             let ranges = string._ranges(of: value)
-            synthesisToAttributed(ranges: ranges)
+            invokingAttributed(ranges: ranges)
         }
     }
     
+    /// set ranges by condition
     public func inRanges(of ranges: [Range<String.Index>]) {
-        synthesisToAttributed(ranges: ranges)
+        invokingAttributed(ranges: ranges)
     }
 
     /// 设置属性
-    private func synthesisToAttributed(range: NSRange) {
+    private func invokingAttributed(range: NSRange) {
         if let attributedString = self.attributedStrings.last {
             attributedString.addAttributes(self.attributedItems, range: range)
         }
-        self.attributedItems.removeAll()
-        self.paragraphStyle = nil
+        self.resetAttributeRecord()
     }
     
-    private func synthesisToAttributed(ranges: [Range<String.Index>]) {
+    private func invokingAttributed(ranges: [Range<String.Index>]) {
         let attributedString = self.attributedStrings.last
         for range in ranges {
             if let nsRange = attributedString?.string.toNSRange(from: range) {
                 attributedString?.addAttributes(self.attributedItems, range: nsRange)
             }
         }
+        self.resetAttributeRecord()
+    }
+    
+    private func resetAttributeRecord() {
         self.attributedItems.removeAll()
         self.paragraphStyle = nil
     }

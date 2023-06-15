@@ -62,6 +62,21 @@ public extension String {
         return ranges
     }
 
+    /// 获取匹配的所有 ranges
+    func _nsRanges(of condition: String, options mask: NSRegularExpression.Options = []) -> [NSRange] {
+        var ranges = [NSRange]()
+        do {
+            let regex = try NSRegularExpression(pattern: condition, options: mask)
+            let results = regex.matches(in: self, range: NSRange(self.startIndex..., in: self))
+            for result in results {
+                ranges.append(result.range)
+            }
+        } catch let error {
+            print("_ranges error")
+        }
+        return ranges
+    }
+
     
 }
 

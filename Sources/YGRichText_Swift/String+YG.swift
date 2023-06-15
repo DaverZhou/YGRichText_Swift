@@ -8,7 +8,7 @@
 import Foundation
 
 public extension String {
-    public func yg_makeAttributed(_ closure: (YGAttributedMaker) -> Void) -> NSMutableAttributedString {
+    public func makeAttributed(_ closure: (YGAttributedMaker) -> Void) -> NSMutableAttributedString {
         if self.isEmpty {
             return NSMutableAttributedString(string: "")
         }
