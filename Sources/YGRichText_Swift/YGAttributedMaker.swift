@@ -240,29 +240,22 @@ extension YGAttributedMaker {
 
     /// 设置属性
     private func synthesisToAttributed(range: NSRange) {
-        let attributedString = self.attributedStrings.last
-        for (key, value) in self.attributedItems {
-            attributedString?.addAttribute(key, value: value, range: range)
+        if let attributedString = self.attributedStrings.last {
+            attributedString.addAttributes(self.attributedItems, range: range)
         }
-        
         self.attributedItems.removeAll()
         self.paragraphStyle = nil
-
     }
     
     private func synthesisToAttributed(ranges: [Range<String.Index>]) {
         let attributedString = self.attributedStrings.last
         for range in ranges {
-            for (key, value) in self.attributedItems {
-                if let nsRange = attributedString?.string.toNSRange(from: range) {
-                    attributedString?.addAttribute(key, value: value, range: nsRange)
-                }
+            if let nsRange = attributedString?.string.toNSRange(from: range) {
+                attributedString?.addAttributes(self.attributedItems, range: nsRange)
             }
         }
-        
         self.attributedItems.removeAll()
         self.paragraphStyle = nil
-
     }
 
 }
