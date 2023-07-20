@@ -9,29 +9,30 @@ import Foundation
 
 public extension String {
     /// Range 转换为 NSRange
-    func toNSRange(from range: Range<String.Index>) -> NSRange? {
-        if let from = range.lowerBound.samePosition(in: utf16), let to = range.upperBound.samePosition(in: utf16) {
-            return NSRange(location: utf16.distance(from: utf16.startIndex, to: from),
-                           length: utf16.distance(from: from, to: to))
-        }
-        return nil
+    public func toNSRange(from range: Range<String.Index>) -> NSRange? {
+        return NSRange(range, in: self)
     }
     
     /// NSRange 转换为 Range
-    func toRange(from nsRange: NSRange) -> Range<String.Index>? {
-        guard
-            let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location,
-                                     limitedBy: utf16.endIndex),
-            let to16 = utf16.index(from16, offsetBy: nsRange.length,
-                                   limitedBy: utf16.endIndex),
-            let from = String.Index(from16, within: self),
-            let to = String.Index(to16, within: self)
-            else { return nil }
-        return from ..< to
+    public func toRange(from nsRange: NSRange) -> Range<String.Index>? {
+        if #available(iOS 13.0, *) {
+            guard let range = Range(nsRange, in: self) else { return nil }
+            return range
+        } else {
+            guard
+                let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location,
+                                         limitedBy: utf16.endIndex),
+                let to16 = utf16.index(from16, offsetBy: nsRange.length,
+                                       limitedBy: utf16.endIndex),
+                let from = String.Index(from16, within: self),
+                let to = String.Index(to16, within: self)
+                else { return nil }
+            return from ..< to
+        }
     }
 
     /// 获取匹配的所有 ranges
-    func _ranges(of condition: String) -> [Range<String.Index>] {
+    public func _ranges(of condition: String) -> [Range<String.Index>] {
         var ranges = [Range<String.Index>]()
         if #available(iOS 16.0, *) {
             ranges = self.ranges(of: condition)
@@ -46,7 +47,7 @@ public extension String {
     }
     
     /// 获取匹配的所有 ranges
-    func _ranges(of condition: String, options mask: NSRegularExpression.Options = []) -> [Range<String.Index>] {
+    public func _ranges(of condition: String, options mask: NSRegularExpression.Options = []) -> [Range<String.Index>] {
         var ranges = [Range<String.Index>]()
         do {
             let regex = try NSRegularExpression(pattern: condition, options: mask)
@@ -63,7 +64,7 @@ public extension String {
     }
 
     /// 获取匹配的所有 ranges
-    func _nsRanges(of condition: String, options mask: NSRegularExpression.Options = []) -> [NSRange] {
+    public func _nsRanges(of condition: String, options mask: NSRegularExpression.Options = []) -> [NSRange] {
         var ranges = [NSRange]()
         do {
             let regex = try NSRegularExpression(pattern: condition, options: mask)

@@ -232,7 +232,7 @@ extension YGAttributedMaker {
     
     /// set ranges by condition
     public func inRanges(of value: String) {
-        if let string = self.strings.last {
+        if let string = self.attributedStrings.last?.string {
             let ranges = string._ranges(of: value)
             invokingAttributed(ranges: ranges)
         }

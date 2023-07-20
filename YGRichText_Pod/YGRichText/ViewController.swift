@@ -34,8 +34,8 @@ class ViewController: UIViewController {
         self.titleLabel.attributedText = string.yg_makeAttributed({ make in
 //            make.font(UIFont.systemFont(ofSize: 20)).foregroundColor(.red).inRange(of: highlight)
             make.strikethroughStyle().inRange(0, 3)
-            make.foregroundColor(.green).inRanges(of: highlight)
             make.insertImage(UIImage.init(named: "personal_editor")!, CGRect.init(x: 0, y: 0, width: 15, height: 17), 0).inRange()
+            make.foregroundColor(.green).inRanges(of: highlight)
         })
         
     }
