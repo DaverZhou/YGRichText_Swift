@@ -80,8 +80,8 @@ public class YGAttributedMaker: NSObject {
     }
 
     /// 下滑线粗度
-    public func underlineStyle(_ value: Int) -> YGAttributedMaker {
-        addAttributed(.underlineStyle, value: value)
+    public func underlineStyle(_ value: NSUnderlineStyle) -> YGAttributedMaker {
+        addAttributed(.underlineStyle, value: value.rawValue)
         return self
     }
 
@@ -151,8 +151,20 @@ public class YGAttributedMaker: NSObject {
         return self
     }
 
+    /// MARK: Private
+    private func addAttributed(_ key: NSAttributedString.Key?, value: Any?) {
+        if key != nil && value != nil {
+            self.attributedItems.updateValue(value!, forKey: key!)
+        }
+    }
+    
+}
+
+// MARK: image
+extension YGAttributedMaker {
     /// 插入图片
-    public func insertImage(_ image: UIImage?, _ bounds: CGRect, _ index: Int) -> YGAttributedMaker {
+    public func insertImage(_ image: UIImage?, _ bounds: CGRect, _ index: Int = 0) -> YGAttributedMaker {
+        guard let image = image else { return self }
         // 图标
         let attachment = NSTextAttachment()
         attachment.image = image
@@ -165,6 +177,11 @@ public class YGAttributedMaker: NSObject {
         return self
     }
 
+    
+}
+
+// MARK: Append
+extension YGAttributedMaker {
     /// 拼接字符串
     public func appendString(_ string: String) -> YGAttributedMaker {
         self.strings.append(string)
@@ -192,22 +209,14 @@ public class YGAttributedMaker: NSObject {
         
         return self
     }
-    
-    
-    
-    /// MARK: Private
-    private func addAttributed(_ key: NSAttributedString.Key?, value: Any?) {
-        if key != nil && value != nil {
-            self.attributedItems.updateValue(value!, forKey: key!)
-        }
-    }
-    
+
 }
 
 
+// MARK: Range
 extension YGAttributedMaker {
     /// set range, defalut all length
-    public func inRange() {
+    public func allRange() {
         if let string = self.strings.last {
             invokingAttributed(range: NSRange(location: 0, length: string.count))
         }
